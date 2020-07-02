@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 from random import randint
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = {'chicago': 'chicago.csv',
+             'new york city': 'new_york_city.csv',
+             'washington': 'washington.csv'}
+
 
 def get_filters():
     """
@@ -17,39 +18,41 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while True:
         city = input('\nWould you like to see data for Chicago, New York City, or Washington?\n')
         city = city.lower()
         if city in ['chicago', 'new york city', 'washington']:
-           break
+            break
 
-
-    # TO DO: get user input for month (all, january, february, ... , june)
-    month_keys = ['all','january','february', 'march','april','may','june','july','august','september','october','november','december']
+    # get user input for month (all, january, february, ... , june)
+    month_keys = ['all', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september',
+                  'october', 'november', 'december']
     while True:
         month = input('\nWhich month? all, january, february, ... , june?\n')
         month = month.lower()
         try:
             month_keys.index(month)
-        except:
+        except Exception as e:
+            print(e)
             continue
         else:
             break
 
-    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    day_keys = ['all','monday','tuesday', 'wednesday','thursday','friday','saturday','sunday']
+    # get user input for day of week (all, monday, tuesday, ... sunday)
+    day_keys = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     while True:
         day = input('\nWhich day? all, monday, tuesday, ... sunday?\n')
         day = day.lower()
         try:
             day_keys.index(day)
-        except:
+        except Exception as e:
+            print(e)
             continue
         else:
             break
 
-    print('-'*40)
+    print('-' * 40)
     return city, month, day
 
 
@@ -88,8 +91,6 @@ def load_data(city, month, day):
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'] == day.title()]
 
-
-
     return df
 
 
@@ -97,48 +98,51 @@ def time_stats(df):
     """Displays statistics on the most frequent times of travel.
     Args:
         (Dataframe) df - Dataframe containing city data filtered by month and day
-        return: Print statements with different statistics. (eg.: The most common words, most common day...)
+        Returns:
+         Print statements with different statistics. (eg.: The most common words, most common day...)
     """
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
-    # TO DO: display the most common month
-    print('*' * 40 )
+    # Display the most common month
+    print('*' * 40)
     print('\n The most common month: {} \n'.format(df['month'].mode()))
 
-    # TO DO: display the most common day of week
+    # Display the most common day of week
     print('\n The most common day of week: {} \n'.format(df['day_of_week'].mode()))
 
-    # TO DO: display the most common start hour
+    # Display the most common start hour
     print('\n The most common start hour: {} \n'.format(df['start_hour'].mode()))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-' * 40)
 
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip.
     Args:
         (Dataframe) df - Dataframe containing city data filtered by month and day
-        return: Print statements with different statistics. (eg.: The most common start station, most end station...)
+        Returns:
+             Print statements with different statistics. (eg.: The most common start station, most end station...)
     """
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
     df.head()
 
-    # TO DO: display most commonly used start station
+    # Display most commonly used start station
     print('\n The most commonly used start station: {} \n'.format(df['Start Station'].mode()))
 
-    # TO DO: display most commonly used end station
+    # Display most commonly used end station
     print('\n The most commonly used end station: {} \n'.format(df['End Station'].mode()))
 
-    # TO DO: display most frequent combination of start station and end station trip
+    # Display most frequent combination of start station and end station trip
     df['start_end'] = df['Start Station'] + 'to' + df['End Station']
-    print('\n The most frequent combination of start station and end station trip: {} \n'.format(df['start_end'].mode()))
+    print(
+        '\n The most frequent combination of start station and end station trip: {} \n'.format(df['start_end'].mode()))
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-' * 40)
 
 
 def trip_duration_stats(df):
@@ -151,15 +155,14 @@ def trip_duration_stats(df):
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-    # TO DO: display total travel time
+    # Display total travel time
     print('\n The total travel time: {} \n '.format(df['Trip Duration'].sum()))
-   
-    
-    # TO DO: display mean travel time
+
+    # Display mean travel time
     print('\n The mean travel time: {} \n'.format(df['Trip Duration'].mean()))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-' * 40)
 
 
 def user_stats(df):
@@ -172,40 +175,43 @@ def user_stats(df):
     print('\nCalculating User Stats...\n')
     start_time = time.time()
     try:
-    # TO DO: Display counts of user types
+        # Display counts of user types
         print('\n The counts of user types: {} \n'.format(df['User Type'].value_counts()))
     except KeyError:
         print("Sorry in this City we don't have any User Type Informations, try another City")
         pass
     try:
-        # TO DO: Display counts of gender
+        # Display counts of gender
         print('\n The counts of gender: {} \n'.format(df['Gender'].value_counts()))
     except KeyError:
         print("Sorry in this City we don't have any Gender Informations, try another City")
         pass
-        # TO DO: Display earliest, most recent, and most common year of birth
+        # Display earliest, most recent, and most common year of birth
     try:
-        print('\n The earliest birth is: {} \n '.format(df.sort_values(by = 'Birth Year')['Birth Year'].head(1)))
-        
-        print('\n The most recent birth is: {} \n'.format(df.sort_values(by = 'Birth Year',ascending=False)['Birth Year'].head(1)))
-        print('\n The most recent birth is: {} \n'.format(df['Birth Year'].mean()))      
+        print('\n The earliest birth is: {} \n '.format(df.sort_values(by='Birth Year')['Birth Year'].head(1)))
+
+        print('\n The most recent birth is: {} \n'.format(
+            df.sort_values(by='Birth Year', ascending=False)['Birth Year'].head(1)))
+        print('\n The most recent birth is: {} \n'.format(df['Birth Year'].mean()))
     except KeyError:
         print("Sorry in this City we don't have any Birth Year Information, try another City")
         pass
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
-    
+    print('-' * 40)
+
+
 def display_rows(df, row):
     """Display 5 random rows in dataframe
     Args:
         (Dataframe) df - Dataframe containing city data filtered by month and day
         (Integer) row - index number of row which will be displayed
-        return: Print statements with different statistics. (eg.: The most common words, most common day...)
+        Returns:
+         Print statements with different statistics. (eg.: The most common words, most common day...)
     """
     display = input('\nWould you like to view individual trip data?'
                     ' Type \'yes\' or \'no\'.\n').lower()
     if display == 'yes':
-        print(df.iloc[row:row+5])
+        print(df.iloc[row:row + 5])
         row += 5
         return display_rows(df, row)
     if display == 'no':
@@ -224,13 +230,14 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
-        #display random row of dataframe in range of 0 - length of dataframe - 20. We want to give the user the opportunity to view random rows.
-        display_rows(df, randint(0,(len(df.index)-20)))
-        
+        # Display random row of dataframe in range of 0 - length of dataframe - 20. We want to give the user the
+        # opportunity to view random rows.
+        display_rows(df, randint(0, (len(df.index) - 20)))
+
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
 
 
 if __name__ == "__main__":
-	main()
+    main()
