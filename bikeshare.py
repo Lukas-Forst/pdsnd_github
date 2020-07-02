@@ -97,7 +97,7 @@ def time_stats(df):
     """Displays statistics on the most frequent times of travel.
     Args:
         (Dataframe) df - Dataframe containing city data filtered by month and day
-        return: Print statements with different
+        return: Print statements with different statistics. (eg.: The most common words, most common day...)
     """
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
@@ -108,7 +108,7 @@ def time_stats(df):
     print('\n The most common month: {} \n'.format(df['month'].mode()))
 
     # TO DO: display the most common day of week
-    print('\n The most common dat of week: {} \n'.format(df['day_of_week'].mode()))
+    print('\n The most common day of week: {} \n'.format(df['day_of_week'].mode()))
 
     # TO DO: display the most common start hour
     print('\n The most common start hour: {} \n'.format(df['start_hour'].mode()))
@@ -118,7 +118,11 @@ def time_stats(df):
 
 
 def station_stats(df):
-    """Displays statistics on the most popular stations and trip. """
+    """Displays statistics on the most popular stations and trip.
+    Args:
+        (Dataframe) df - Dataframe containing city data filtered by month and day
+        return: Print statements with different statistics. (eg.: The most common start station, most end station...)
+    """
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
@@ -138,7 +142,11 @@ def station_stats(df):
 
 
 def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
+    """Displays statistics on the total and average trip duration.
+    Args:
+        (Dataframe) df - Dataframe containing city data filtered by month and day
+        return: Print statements with different statistics. (eg.: total travel time, mean travel time...)
+    """
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
@@ -156,8 +164,9 @@ def trip_duration_stats(df):
 
 def user_stats(df):
     """Displays statistics on bikeshare users.
-    
-    
+    Args:
+        (Dataframe) df - Dataframe containing city data filtered by month and day
+        return: Print statements with different statistics. (eg.: count gender, types etc..)
     """
 
     print('\nCalculating User Stats...\n')
@@ -187,7 +196,12 @@ def user_stats(df):
     print('-'*40)
     
 def display_rows(df, row):
-    """Display 5 random rows in dataframe  """
+    """Display 5 random rows in dataframe
+    Args:
+        (Dataframe) df - Dataframe containing city data filtered by month and day
+        (Integer) row - index number of row which will be displayed
+        return: Print statements with different statistics. (eg.: The most common words, most common day...)
+    """
     display = input('\nWould you like to view individual trip data?'
                     ' Type \'yes\' or \'no\'.\n').lower()
     if display == 'yes':
